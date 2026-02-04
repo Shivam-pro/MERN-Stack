@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 export const Storecontext = createContext(null);
 
 export const StoreContextProvider = ({ children }) => {
-    const url = "http://localhost:5000";
+    const url = "https://mern-stack-djn5.onrender.com";
     const [notes, setNotes] = useState([]);
     const [token, setToken] = useState(localStorage.getItem("token"));
 
