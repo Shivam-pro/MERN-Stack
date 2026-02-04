@@ -8,14 +8,4 @@ export default defineConfig({
     react(),
   tailwindcss()
   ],
-<<<<<<< HEAD
-=======
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://mern-stack-backend-2719.onrender.com'
-      }
-    }
-  }
->>>>>>> d6eee0beefa02fff9f42541f9816dcb62a856852
 })
