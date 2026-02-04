@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 export const Storecontext = createContext(null);
 
 export const StoreContextProvider = ({ children }) => {
-    const url = "http://localhost:5000";
+    const url = import.meta.env.VITE_BACKEND_URL;
     const [notes, setNotes] = useState([]);
     const [token, setToken] = useState(localStorage.getItem("token"));
 
