@@ -4,13 +4,14 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { Storecontext } from "../context/Storecontext";
+import { toast } from "react-toastify";
 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const nevigate = useNavigate();
-  const {setToken} = useContext(Storecontext);
+  const {setToken, url} = useContext(Storecontext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -19,15 +20,16 @@ const Login = () => {
         "Content-type": "application/json"
       },
     }
-    const { data } = await axios.post('/api/users/login', { email, password }, config);
+    const { data } = await axios.post(`${url}/api/users/login`, { email, password }, config);
     if(data.success){
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.user.name);
       setToken(localStorage.getItem("token"));
+      toast.success(data.message);
       nevigate("/mynotes");
     }
     else{
-      alert(data.message);
+      toast.error(data.message);
     }
   }
 

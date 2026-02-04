@@ -5,11 +5,12 @@ import {toast} from 'react-toastify';
 export const Storecontext = createContext(null);
 
 export const StoreContextProvider = ({ children }) => {
+    const url = "http://localhost:5000";
     const [notes, setNotes] = useState([]);
     const [token, setToken] = useState(localStorage.getItem("token"));
 
     const fetchNotes = async () => {
-        const {data} = await axios.get('/api/note/getnote', { headers: { token } });
+        const {data} = await axios.get(`${url}/api/note/getnote`, { headers: { token } });
         if(data.success){
             setNotes(data.notes);
         }
@@ -19,7 +20,7 @@ export const StoreContextProvider = ({ children }) => {
     }
 
     const addNote = async (formdata) => {
-        const {data} = await axios.post('/api/note/addnote', formdata, { headers: { token } });
+        const {data} = await axios.post(`${url}/api/note/addnote`, formdata, { headers: { token } });
         if(data.success){
             fetchNotes();
             toast.success(data.message);
@@ -31,7 +32,7 @@ export const StoreContextProvider = ({ children }) => {
     }
 
     const removeNote = async (id) => {
-        const {data} = await axios.post('/api/note/removenote', { id }, { headers: { token } });
+        const {data} = await axios.post(`${url}/api/note/removenote`, { id }, { headers: { token } });
         if(data.success){
             fetchNotes();
             toast.success(data.message);
@@ -43,7 +44,7 @@ export const StoreContextProvider = ({ children }) => {
     }
 
     const editNote = async (formdata) => {
-        const {data} = await axios.post('/api/note/updatenote', formdata, { headers: { token } });
+        const {data} = await axios.post(`${url}/api/note/updatenote`, formdata, { headers: { token } });
         if(data.success){
             fetchNotes();
             toast.success(data.message);
@@ -60,6 +61,7 @@ export const StoreContextProvider = ({ children }) => {
     }, [token])
 
     const contextValue = {
+        url,
         notes,
         setNotes,
         fetchNotes,

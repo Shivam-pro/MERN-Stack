@@ -7,14 +7,14 @@ export const registerUser = asyncHandler(async (req, res) => {
     try {
         const userExists = await User.findOne({ email });
         if (userExists) {
-            return res.status(400).json({ success: false, message: "User Already Exists" });
+            return res.json({ success: false, message: "User Already Exists" });
         }
         const user = await User.create({
             name, email, password
         })
         const token = createToken(user._id);
         if (user) {
-            return res.json({ success: true, message: "Your account is created successfully", token })
+            return res.json({ success: true, message: "Your account is created successfully", token, user })
         }
     } catch (error) {
         return res.json({ success: false, message: "Invalid Email or password" });
@@ -37,7 +37,7 @@ export const loginUser = asyncHandler(async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid credentials" });
         }
         const token = createToken(user._id);
-        return res.json({ success: true, token, user });
+        return res.json({ success: true, token, user, message: "You Are login successfully" });
     } catch (error) {
         console.error("error: login", error);
         return res.status(500).json({ success: false, message: "Server error" });
