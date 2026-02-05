@@ -30,16 +30,16 @@ export const loginUser = asyncHandler(async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ success: false, message: "User not found" });
+            return res.json({ success: false, message: "User not found" });
         }
         const isMatch = await user.matchPassword(password);
         if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Invalid credentials" });
+            return res.json({ success: false, message: "Invalid credentials" });
         }
         const token = createToken(user._id);
         return res.json({ success: true, token, user, message: "You Are login successfully" });
     } catch (error) {
         console.error("error: login", error);
-        return res.status(500).json({ success: false, message: "Server error" });
+        return res.json({ success: false, message: "Server error" });
     }
 });
