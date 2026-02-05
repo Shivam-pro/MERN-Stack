@@ -1,5 +1,5 @@
 import './App.css'
-import Footer from './components/footer'
+import Footer from './components/Footer'
 import Header from './components/Header'
 import LandingPage from './screens/LandingPage'
 import { Routes, Route } from 'react-router-dom'
